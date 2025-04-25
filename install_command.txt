@@ -1,1 +1,5 @@
 sudo apt update && sudo apt upgrade -y && sudo apt install -y git && git clone https://github.com/user65434680/client_installation client && cd client && chmod +x install.sh && ./install.sh
+
+for manual config
+
+sudo apt update && sudo apt upgrade -y && sudo apt install -y git && git clone https://github.com/user65434680/client_installation client && cd client && chmod +x install.sh
