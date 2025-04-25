@@ -8,7 +8,6 @@ DNS_SERVERS=$(jq -r '.DNS_SERVERS' "$CONFIG_FILE")
 
 CON_NAME=$(nmcli -t -f NAME,TYPE connection show --active | grep ethernet | cut -d: -f1)
 
-
 if [ -z "$CON_NAME" ]; then
   echo "No active wired connection found."
   exit 1
