@@ -1,5 +1,1 @@
-sudo apt update && sudo apt upgrade -y && sudo apt install git && git clone https://github.com/user65434680/client_installation client && cd client && chmod 755 network.sh && chmod 755 install_dependencies.sh && ./install_dependencies.sh
-
-or
-
-sudo apt update && sudo apt upgrade -y && sudo apt install -y git && git clone https://github.com/user65434680/client_installation client && cd client && chmod +x *.sh && ./install_dependencies.sh
+sudo apt update && sudo apt upgrade -y && sudo apt install -y git && git clone https://github.com/user65434680/client_installation client && cd client && chmod +x install.sh && ./install.sh
