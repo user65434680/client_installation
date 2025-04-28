@@ -18,8 +18,10 @@ sudo selinux-activate
 chmod +x echo_ip_range.sh
 chmod +x network.sh
 chmod +x add_to_sudoers.sh
+chmod +x IP_tables_install.sh
 sudo bash echo_ip_range.sh
 sudo bash network.sh
 sudo bash add_to_sudoers.sh
+bash IP_tables_install.sh
 
 sudo reboot
