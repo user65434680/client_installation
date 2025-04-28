@@ -8,9 +8,6 @@ echo "Copying the monitoring script..."
 sudo cp unbound-monitor.sh /opt/unbound-monitor/unbound-monitor.sh
 sudo chmod +x /opt/unbound-monitor/unbound-monitor.sh
 
-sudo chown root:root /opt/unbound-monitor/unbound-monitor.sh
-sudo chmod 700 /opt/unbound-monitor/unbound-monitor.sh
-
 echo "Creating systemd service for unbound-monitor..."
 cat <<EOF | sudo tee /etc/systemd/system/unbound-monitor.service > /dev/null
 [Unit]
@@ -41,3 +38,6 @@ echo "Saving iptables rules..."
 sudo sh -c 'iptables-save > /etc/iptables/rules.v4'
 
 echo "Setup complete! The unbound-monitor service is running, and iptables rules are configured."
+
+sudo chown root:root /opt/unbound-monitor/unbound-monitor.sh
+sudo chmod 700 /opt/unbound-monitor/unbound-monitor.sh
