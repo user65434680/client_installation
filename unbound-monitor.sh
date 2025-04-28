@@ -3,6 +3,16 @@
 # will run constantly after startup in the background
 set -e
 
+if ! iptables -C OUTPUT -p udp --dport 53 -j ACCEPT 2>/dev/null; then
+    echo "Allowing outgoing DNS traffic (UDP)"
+    iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
+fi
+
+if ! iptables -C OUTPUT -p tcp --dport 53 -j ACCEPT 2>/dev/null; then
+    echo "Allowing outgoing DNS traffic (TCP)"
+    iptables -A OUTPUT -p tcp --dport 53 -j ACCEPT
+fi
+
 while true; do
     if [ ! -f /opt/unbound-monitor/allowed_domains.json ]; then
         echo "Error: /opt/unbound-monitor/allowed_domains.json not found."
