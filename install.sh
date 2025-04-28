@@ -2,7 +2,6 @@
 
 sudo apt update -y
 sudo apt upgrade -y
-sudo systemctl disable apparmor --now
 
 sudo apt install unbound -y
 sudo systemctl enable unbound
