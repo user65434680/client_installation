@@ -17,5 +17,5 @@ while true; do
     done
 # NEVER EVER REMOVE SLEEP COMMAND OR THE SCRIPT WILL EAT ALL SYSTEM RESOURCES AND CRASH.
 # even 1 second is better than nothing.
-    sleep 3
+    sleep 10
 done
