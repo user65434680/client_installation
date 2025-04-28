@@ -1,8 +1,8 @@
 #!/bin/bash
 
-ALLOWED_DOMAINS_FILE="allowed_domains.txt"
-ALLOWED_IPS_FILE="allowed_domain_IP.txt"
-BLOCKED_LOG="blocked_ips.log"
+ALLOWED_DOMAINS_FILE="/opt/IP_blocker/allowed_domains.txt"
+ALLOWED_IPS_FILE="/opt/IP_blocker/allowed_domain_IP.txt"
+BLOCKED_LOG="/opt/IP_blocker/blocked_ips.log"
 
 echo "Starting to resolve domains and block unauthorized IPs..."
 
