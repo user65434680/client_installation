@@ -1,0 +1,4 @@
+# Set the correct owner and permissions
+sudo chown root:root /opt/unbound-monitor/allowed_domains.json
+sudo chmod 600 /opt/unbound-monitor/allowed_domains.json
+

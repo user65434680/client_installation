@@ -1,0 +1,7 @@
+if you wish to manually configure anything in the script please remove the last argument of the command. "&& ./install.sh"
+
+run the command mentioned in install_command.txt. This will install everything needed to the client. It may take a some time because of how much is needed to run the client but you dont have to input anything.
+
+Verify that the machine has gotten an IP. If there is no network connection most likely two machines have the same IP so just change the machines IP from the settings menu. If you want to set the machine IP yourself then just sudo nano install.sh and comment out echo_ip_range.sh and then go to network.json and set your preferred settings.
+
+once you have verified that the machine does have a valid IP and connection you can next connect the machine to the server. This is done from the server side application under the option clients. There you input the machines IP and SSH password and it will connect the computer to the server client pool. This creates a SSH key for the machine and you are now good to go with sending instructions to this client. This is not automated on the client side because clients should not have ssh access to the server ever.

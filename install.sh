@@ -8,6 +8,9 @@ sudo apt install unbound -y
 sudo systemctl enable unbound
 sudo apt install openssh-server -y
 sudo systemctl enable ssh
+sudo apt install -y inotify-tools iptables ipset
+sudo apt install jq
+
 
 sudo apt install policycoreutils selinux-utils selinux-basics -y
 sudo selinux-activate
