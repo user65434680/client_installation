@@ -11,7 +11,7 @@ echo "Starting to resolve domains and block unauthorized IPs..."
 while true; do
     if [[ ! -f "$ALLOWED_DOMAINS_FILE" ]]; then
         echo "Error: $ALLOWED_DOMAINS_FILE not found."
-        sleep 10
+        sleep 1
         continue
     fi
 
@@ -48,6 +48,6 @@ while true; do
         fi
     done
 
-    echo "Sleeping for 10 seconds before the next iteration..."
-    sleep 10
+    echo "Sleeping for 1 seconds before the next iteration..."
+    sleep 1
 done
