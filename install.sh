@@ -10,6 +10,7 @@ sudo systemctl enable ssh
 sudo apt install -y inotify-tools iptables ipset iptables-persistent
 sudo apt install jq -y
 sudo apt install dnsutils -y
+sudo apt install net-tools -y
 
 chmod +x echo_ip_range.sh
 chmod +x network.sh
