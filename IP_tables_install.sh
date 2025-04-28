@@ -2,24 +2,43 @@
 set -e
 
 echo "Creating directory for the monitoring script..."
-sudo mkdir -p /opt/unbound-monitor
+sudo mkdir -p /opt/IP_blocker
+sudo chmod 700 /opt/IP_blocker
 
-echo "Copying the monitoring script..."
-sudo cp unbound-monitor.sh /opt/unbound-monitor/unbound-monitor.sh
-sudo chmod +x /opt/unbound-monitor/unbound-monitor.sh
+echo "Copying blocking script..."
+sudo cp block_unauthorized_ips.sh /opt/IP_blocker/block_unauthorized_ips.sh
+sudo chmod +x /opt/IP_blocker/block_unauthorized_ips.sh
 
-echo "Copying json file..."
-sudo cp allowed_domains.json /opt/unbound-monitor/allowed_domains.json
-sudo chmod +x /opt/unbound-monitor/allowed_domains.json
+echo "Copying resolve_domains file..."
+sudo cp resolve_domains.sh /opt/IP_blocker/resolve_domains.sh
+sudo chmod +x /opt/IP_blocker/resolve_domains.sh
 
-echo "Creating systemd service for unbound-monitor..."
-cat <<EOF | sudo tee /etc/systemd/system/unbound-monitor.service > /dev/null
+echo "Copying allowed_domains.txt file..."
+sudo cp allowed_domains.txt /opt/IP_blocker/allowed_domains.txt
+sudo chmod 600 /opt/IP_blocker/allowed_domains.txt
+
+echo "Creating systemd service for resolve_domains.sh..."
+cat <<EOF | sudo tee /etc/systemd/system/resolve_domains.service > /dev/null
 [Unit]
-Description=Monitor Unbound DNS Log and Update iptables
+Description=Query DNS for Allowed Domains and Update IP List
 
 [Service]
-ExecStart=/opt/unbound-monitor/unbound-monitor.sh
-Restart=always
+ExecStart=/opt/IP_blocker/scripts/resolve_domains.sh
+Restart=on-failure
+User=root
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+echo "Creating systemd service for block-ips..."
+cat <<EOF | sudo tee /etc/systemd/system/block_unauthorized_ips.service > /dev/null
+[Unit]
+Description=Block IPs Not Found in Allowed Domain List
+
+[Service]
+ExecStart=/opt/IP_blocker/scripts/block_unauthorized_ips.sh
+Restart=on-failure
 User=root
 
 [Install]
@@ -29,27 +48,19 @@ EOF
 echo "Reloading systemd..."
 sudo systemctl daemon-reload
 
-echo "Enabling and starting the unbound-monitor service..."
-sudo systemctl enable unbound-monitor.service
-sudo systemctl start unbound-monitor.service
+echo "Enabling and starting the block_unauthorized_ips.service..."
+sudo systemctl enable block_unauthorized_ips.service
+sudo systemctl start block_unauthorized_ips.service
 
-echo "Setting up static iptables rules..."
+echo "Enabling and starting the resolve_domains.service..."
+sudo systemctl enable resolve_domains.service
+sudo systemctl start resolve_domains.service
 
-sudo iptables -F OUTPUT
+sudo chown root:root /opt/IP_blocker/block_unauthorized_ips.sh
+sudo chmod 700 /opt/IP_blocker/block_unauthorized_ips.sh
 
-sudo iptables -A OUTPUT -d 127.0.0.1 -p udp --dport 53 -j ACCEPT
-sudo iptables -A OUTPUT -d 127.0.0.1 -p tcp --dport 53 -j ACCEPT
-sudo iptables -A OUTPUT -j REJECT
+sudo chown root:root /opt/IP_blocker/resolve_domains.sh
+sudo chmod 700 /opt/IP_blocker/resolve_domains.sh
 
-echo "Saving only static iptables rules for persistence..."
-sudo mkdir -p /etc/iptables
-yes | sudo iptables-save | grep -E "127\.0\.0\.1|REJECT" | sudo tee /etc/iptables/rules.v4 > /dev/null
-
-
-echo "Setup complete! The unbound-monitor service is running, and iptables rules are configured."
-
-sudo chown root:root /opt/unbound-monitor/unbound-monitor.sh
-sudo chmod 700 /opt/unbound-monitor/unbound-monitor.sh
-
-sudo chown root:root /opt/unbound-monitor/allowed_domains.json
-sudo chmod 600 /opt/unbound-monitor/allowed_domains.json
+sudo chown root:root /opt/IP_blocker/allowed_domains.txt
+sudo chmod 600 /opt/IP_blocker/allowed_domains.txt
