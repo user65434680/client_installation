@@ -8,6 +8,10 @@ echo "Copying the monitoring script..."
 sudo cp unbound-monitor.sh /opt/unbound-monitor/unbound-monitor.sh
 sudo chmod +x /opt/unbound-monitor/unbound-monitor.sh
 
+echo "Copying json file..."
+sudo cp allowed_domains.json /opt/unbound-monitor/allowed_domains.json
+sudo chmod +x /opt/unbound-monitor/allowed_domains.json
+
 echo "Creating systemd service for unbound-monitor..."
 cat <<EOF | sudo tee /etc/systemd/system/unbound-monitor.service > /dev/null
 [Unit]
@@ -46,3 +50,6 @@ echo "Setup complete! The unbound-monitor service is running, and iptables rules
 
 sudo chown root:root /opt/unbound-monitor/unbound-monitor.sh
 sudo chmod 700 /opt/unbound-monitor/unbound-monitor.sh
+
+sudo chown root:root /opt/unbound-monitor/allowed_domains.json
+sudo chmod 600 /opt/unbound-monitor/allowed_domains.json
