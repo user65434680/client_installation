@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ALLOWED_DOMAINS_FILE="/path/to/allowed_domains.txt"
-ALLOWED_IPS_FILE="/path/to/allowed_domain_IP.txt"
+ALLOWED_DOMAINS_FILE="allowed_domains.txt"
+ALLOWED_IPS_FILE="allowed_domain_IP.txt"
 
 echo "Starting to resolve domains to IPs every 5 seconds..."
 
