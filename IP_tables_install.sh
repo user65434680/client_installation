@@ -39,7 +39,7 @@ sudo iptables -A OUTPUT -j REJECT
 
 echo "Saving only static iptables rules for persistence..."
 sudo mkdir -p /etc/iptables
-sudo iptables-save | grep -E "127\.0\.0\.1|REJECT" | sudo tee /etc/iptables/rules.v4 > /dev/null
+yes | sudo iptables-save | grep -E "127\.0\.0\.1|REJECT" | sudo tee /etc/iptables/rules.v4 > /dev/null
 
 
 echo "Setup complete! The unbound-monitor service is running, and iptables rules are configured."
