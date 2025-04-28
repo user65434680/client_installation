@@ -29,13 +29,18 @@ echo "Enabling and starting the unbound-monitor service..."
 sudo systemctl enable unbound-monitor.service
 sudo systemctl start unbound-monitor.service
 
-echo "Setting up iptables rules..."
+echo "Setting up static iptables rules..."
+
+sudo iptables -F OUTPUT
+
 sudo iptables -A OUTPUT -d 127.0.0.1 -p udp --dport 53 -j ACCEPT
 sudo iptables -A OUTPUT -d 127.0.0.1 -p tcp --dport 53 -j ACCEPT
 sudo iptables -A OUTPUT -j REJECT
 
-echo "Saving iptables rules..."
-sudo sh -c 'iptables-save > /etc/iptables/rules.v4'
+echo "Saving only static iptables rules for persistence..."
+sudo mkdir -p /etc/iptables
+sudo iptables-save | grep -E "127\.0\.0\.1|REJECT" | sudo tee /etc/iptables/rules.v4 > /dev/null
+
 
 echo "Setup complete! The unbound-monitor service is running, and iptables rules are configured."
 
