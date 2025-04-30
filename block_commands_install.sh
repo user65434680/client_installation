@@ -6,12 +6,10 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 sudo mkdir -p /opt/realtime_blocking
-sudo chmod 700 /opt/realtime_blocking
 
 echo "Copying realtime blocking"
-sudo cp realtime_blocking.sh /opt/realtime_blocker/realtime_blocking.sh
-chmod +x /opt/realtime_blocking/realtime_blocking.sh
-
+sudo cp realtime_blocking.sh /opt/realtime_blocking/realtime_blocking.sh
+sudo chmod +x /opt/realtime_blocking/realtime_blocking.sh
 
 echo "Creating systemd service for resolve_and_block.sh..."
 cat <<EOF | sudo tee /etc/systemd/system/realtime_blocking.service > /dev/null
@@ -31,8 +29,6 @@ echo "Reloading systemd..."
 sudo systemctl daemon-reload
 
 cat << 'EOF' > /etc/audit/rules.d/block.rules
-# /etc/audit/rules.d/block.rules
-
 -a always,exit -F path=/usr/bin/apt-get -F perm=x -k apt-get-block
 -a always,exit -F path=/usr/bin/apt -F perm=x -k apt-block
 -a always,exit -F path=/usr/bin/mount -F perm=x -k mount-block
@@ -50,10 +46,11 @@ else
     exit 2
 fi
 
-
 echo "Enabling and starting the realtime_blocking.service..."
 sudo systemctl enable realtime_blocking.service
 sudo systemctl start realtime_blocking.service
 
-sudo chown root:root /opt/realtime_blocking/realtime_blocking.sh
+echo "Setting permissions..."
+sudo chmod 700 /opt/realtime_blocking
 sudo chmod 700 /opt/realtime_blocking/realtime_blocking.sh
+sudo chown root:root /opt/realtime_blocking/realtime_blocking.sh
