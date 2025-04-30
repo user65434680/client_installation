@@ -22,7 +22,8 @@ chmod +x add_to_sudoers.sh
 chmod +x IP_tables_install.sh
 chmod +x resolve_domains.sh
 chmod +x block_unauthorized_ips.sh
-chmod +x block_command_execution.sh
+chmod +x block_commands_install.sh
+sudo bash block_commands_install.sh
 sudo bash echo_ip_range.sh
 sudo bash network.sh
 sudo bash add_to_sudoers.sh

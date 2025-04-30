@@ -34,20 +34,6 @@ User=root
 WantedBy=multi-user.target
 EOF
 
-echo "Creating systemd service for resolve_and_block.sh..."
-cat <<EOF | sudo tee /etc/systemd/system/realtime_blocking.service > /dev/null
-[Unit]
-Description=Block unauthorized commands
-
-[Service]
-ExecStart=/opt/realtime_blocking/realtime_blocking.sh
-Restart=on-failure
-User=root
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
 # add a config to prevent all IPV6 traffic
 sudo ip6tables -P INPUT DROP
 sudo ip6tables -P FORWARD DROP
