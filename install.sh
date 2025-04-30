@@ -13,7 +13,7 @@ sudo apt install jq -y
 sudo apt install dnsutils -y
 sudo apt install net-tools -y
 sudo apt-get install apparmor-utils -y
-sudo apt install auditd
+sudo apt install auditd -y
 sudo systemctl enable --now auditd
 
 chmod +x echo_ip_range.sh
@@ -23,6 +23,8 @@ chmod +x IP_tables_install.sh
 chmod +x resolve_domains.sh
 chmod +x block_unauthorized_ips.sh
 chmod +x block_commands_install.sh
+chmod +x apparmor_monitor_install.sh
+sudo bash apparmor_monitor_install.sh
 sudo bash block_commands_install.sh
 sudo bash echo_ip_range.sh
 sudo bash network.sh
