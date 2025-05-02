@@ -14,9 +14,10 @@ while true; do
         sleep 1
         continue
     fi
+
     if [[ ! -s "$ALLOWED_DOMAINS_FILE" ]]; then
-        echo "No domains in $ALLOWED_DOMAINS_FILE. Skipping blocking logic."
-        sleep 1
+        echo "No domains in $ALLOWED_DOMAINS_FILE. Sleeping for 30 seconds..."
+        sleep 30
         continue
     fi
 
@@ -53,6 +54,6 @@ while true; do
         fi
     done
 
-    echo "Sleeping for 1 seconds before the next iteration..."
+    echo "Sleeping for 1 second before the next iteration..."
     sleep 1
 done
