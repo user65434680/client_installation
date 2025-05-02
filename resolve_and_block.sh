@@ -14,6 +14,11 @@ while true; do
         sleep 1
         continue
     fi
+    if [[ ! -s "$ALLOWED_DOMAINS_FILE" ]]; then
+        echo "No domains in $ALLOWED_DOMAINS_FILE. Skipping blocking logic."
+        sleep 1
+        continue
+    fi
 
     echo "Resolving domains to IPs..."
     TEMP_FILE=$(mktemp)
