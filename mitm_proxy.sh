@@ -15,7 +15,7 @@ After=network.target
 [Service]
 Type=simple
 User=yourusername
-ExecStart=/usr/local/bin/mitmproxy --mode transparent --showhost -p 8080
+ExecStart=/usr/local/bin/mitmdump --mode transparent --showhost -p 8080
 Restart=on-failure
 
 [Install]
