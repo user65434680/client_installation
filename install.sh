@@ -15,6 +15,7 @@ sudo apt install net-tools -y
 sudo apt-get install apparmor-utils -y
 sudo apt install auditd -y
 sudo systemctl enable --now auditd
+sudo apt install mitmproxy -y
 
 chmod +x echo_ip_range.sh
 chmod +x network.sh
