@@ -7,7 +7,7 @@ sudo mkdir -p /opt/IP_blocker
 
 echo "Copying blocking script..."
 sudo cp resolve_and_block.sh /opt/IP_blocker/resolve_and_block.sh
-
+sudo chmod +x /opt/IP_blocker/resolve_and_block.sh
 
 echo "Copying allowed_domains.txt file..."
 sudo cp allowed_domains.txt /opt/IP_blocker/allowed_domains.txt
@@ -28,12 +28,10 @@ User=root
 WantedBy=multi-user.target
 EOF
 
-# add a config to prevent all IPV6 traffic
 sudo ip6tables -P INPUT DROP
 sudo ip6tables -P FORWARD DROP
 sudo ip6tables -P OUTPUT DROP
 
-# add so that it stays after reboot
 sudo ip6tables-save > /etc/iptables/rules.v6
 
 echo "Reloading systemd..."
